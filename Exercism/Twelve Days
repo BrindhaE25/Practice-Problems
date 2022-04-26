@@ -1,0 +1,64 @@
+class TwelveDays {
+    String [] song = {"a Partridge in a Pear Tree","two Turtle Doves","three French Hens","four Calling Birds","five Gold Rings","six Geese-a-Laying","seven Swans-a-Swimming","eight Maids-a-Milking","nine Ladies Dancing","ten Lords-a-Leaping","eleven Pipers Piping","twelve Drummers Drumming"};
+    String [] verse = {"first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh","twelfth"};
+    String verse(int verseNumber) {
+        String songs = "";
+        
+        songs += "On the " + verse[verseNumber-1] + " day of Christmas my true love gave to me: " ;
+        for(int i=verseNumber-1;i>=0;i--) {
+            songs += song[i];
+            if(i > 0)
+                songs += ", ";
+            else
+                songs += ".\n";
+            if(i == 1)
+                songs += "and ";       
+        }
+        return songs;
+            
+    }
+
+    String verses(int startVerse, int endVerse) {
+        String songs = "";
+        for(int j=startVerse-1;j<endVerse;j++) {
+            songs += "On the " + verse[j] + " day of Christmas my true love gave to me: " ;
+            for(int i=j;i>=0;i--) {
+            songs += song[i];
+            if(i > 0)
+                songs += ", ";
+            else
+                if(j == endVerse-1)
+                songs += ".\n";
+                else
+                    songs += ".\n\n";
+            if(i == 1)
+                songs += "and ";       
+        }
+            }
+        return songs;
+        
+    }
+    
+    String sing() {
+        String songs = "";
+        for(int j=0;j<12;j++) {
+            songs += "On the " + verse[j] + " day of Christmas my true love gave to me: " ;
+            for(int i=j;i>=0;i--) {
+            songs += song[i];
+            if(i > 0)
+                songs += ", ";
+            else
+                if(j == 11)
+                songs += ".\n";
+                else
+                    songs += ".\n\n";
+            if(i == 1)
+                songs += "and "; 
+            
+        }
+            }
+        return songs;
+        
+        
+    }
+}
