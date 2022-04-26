@@ -1,0 +1,21 @@
+class Acronym {
+    String phrase;
+    Acronym(String phrase) {
+        this.phrase = phrase;
+    }
+
+    String get() {
+        String result = "";
+        result += phrase.toUpperCase().charAt(0);
+        
+        for (int i = 1; i <= phrase.length() - 1; i++) {
+            if((phrase.charAt(i) >= 65 && phrase.charAt(i) <= 90 ) || (phrase.charAt(i) >= 97 && phrase.charAt(i) <= 122)) {
+            if (phrase.charAt(i - 1) == ' ' || phrase.charAt(i - 1) == '-' || phrase.charAt(i - 1) == '_') {
+                result += phrase.toUpperCase().charAt(i);
+            }
+        }
+            }
+        return result;
+            }
+
+}
