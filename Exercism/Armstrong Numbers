@@ -1,0 +1,27 @@
+class ArmstrongNumbers {
+
+    boolean isArmstrongNumber(int numberToCheck) {
+        int num = numberToCheck;
+        int rem = 0;
+        int n =0;
+        int number = 0;
+        while(num > 0) {
+            rem = num % 10;
+            num = num / 10;
+            n++;
+        }
+        num = numberToCheck;
+        while(num > 0) {
+            rem = num % 10;
+            num = num / 10;
+            number += Math.pow(rem,n);
+        }
+        if(number == numberToCheck)
+            return true;
+        else 
+            return false;
+        
+
+    }
+
+}
