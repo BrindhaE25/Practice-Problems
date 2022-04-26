@@ -1,0 +1,20 @@
+public class Lasagna {
+    int expectedMinutesInOven = 40;
+    // TODO: define the 'expectedMinutesInOven()' method
+    public int  expectedMinutesInOven() {
+        return this.expectedMinutesInOven;
+    }
+    public int remainingMinutesInOven(int remainingMinutesInOven) {
+        return (this.expectedMinutesInOven-remainingMinutesInOven);
+    }
+
+    // TODO: define the 'remainingMinutesInOven()' method
+    public int preparationTimeInMinutes(int no_of_layers) {
+        return 2* no_of_layers;
+    }
+    // TODO: define the 'preparationTimeInMinutes()' method
+    public int totalTimeInMinutes(int no_of_layers, int no_of_minutes) {
+        return  2* no_of_layers + no_of_minutes;
+    }
+    // TODO: define the 'totalTimeInMinutes()' method
+}
