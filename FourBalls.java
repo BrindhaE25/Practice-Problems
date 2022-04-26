@@ -3,7 +3,8 @@ import processing.core.PApplet;
 public class FourBalls extends PApplet {
     public static final int width = 600;
     public static final int height = 600;
-    Ball [] ball = new Ball[4];
+    int firstposition =0, secondposition=0, thirdposition=0, fourthposition=0;
+    int first=1, second=2, third=3, fourth=4;
 
     public static void main(String args[]) {
         PApplet.main("FourBalls", args);
@@ -14,38 +15,17 @@ public class FourBalls extends PApplet {
         size(width, height);
     }
 
-   @Override
-    public void setup() {
-       for (int iter = 1; iter <= 4; iter++) {
-           this.ball[iter-1] = new Ball(0, (iter * height) / 5, iter);}
-    }
 
     @Override
     public void draw() {
-        for (int iter = 1; iter <= 4; iter++) {
-            this.ball[iter-1].draw(this);
-            this.ball[iter-1].moveBall();
-        }
+        ellipse(firstposition,(first*height)/5,10,10);
+        firstposition+=first;
+        ellipse(secondposition,(second*height)/5,10,10);
+        secondposition+=second;
+        ellipse(thirdposition,(third*height)/5,10,10);
+        thirdposition+=third;
+        ellipse(fourthposition,(fourth*height)/5,10,10);
+        fourthposition+=fourth;
     }
 
 }
-class Ball extends PApplet{
-    int positionX;
-    int positionY;
-    int speed;
-
-    Ball(int positionX,int positionY,int speed) {
-        this.positionX = positionX;
-        this.positionY = positionY;
-        this.speed = speed;
-    }
-
-    public void draw(PApplet papplet) {
-        papplet.ellipse(this.positionX,this.positionY,10,10);
-    }
-    public void moveBall() {
-        this.positionX=this.positionX + this.speed;
-    }
-
-}
-
