@@ -1,141 +1,207 @@
 import java.util.*;
 
-
 class Item {
-    private double taxPercentage;
-    private String itemCode;
-    private String itemName;
-    private String type;
-    private double unitPrice;
-
-    Item(String itemCode, String itemName, String type, double unitPrice) {
-        this.itemCode = itemCode;
-        this.itemName = itemName;
-        this.type = type;
-        this.unitPrice = unitPrice;
-    }
-
-    public void printItem() {
-        System.out.println(itemCode + " " + itemName + " " + type + " " + unitPrice);
-    }
-
-    public boolean isHaving(String itemCode) {
-    	//System.out.println(this.itemCode);
-        return itemCode.equals(this.itemCode);
-    }
-
-    public double calculatePrice(double quantity) {
-        return unitPrice * quantity;
-    }
-
-}
-
-class StoreInventoryDetails {
-    private ArrayList<Item> items = new ArrayList<>();
-
-    public void addItems(Item item) {
-        items.add(item);
-    }
-
-    public void printItems() {
-    	//System.out.println(items.size());
-        for (Item itemiterate : items) {
-            itemiterate.printItem();
-        }
-    }
-
-    public Item getItem(String itemCode) {
-    	//System.out.println(items.size());
-    		for (Item item : items) {
-                if (item.isHaving(itemCode)) {
-                	//System.out.println(item.isHaving(itemCode));
-                    item.printItem();
-                    return item;
-                }
-            }
-    		throw new Error("Item not found");
-    	    }
-}
-
-class Bill {
-    Map<Item, Integer> itemList = new HashMap<>();
-   
-    public void addItem(String itemCode, int quantity, StoreInventoryDetails storeInventoryDetails) {
-        Item item = storeInventoryDetails.getItem(itemCode);
-        itemList.put(item, quantity);
-    }
-
-    private double totalWithoutDiscount() {
-        double totalWithoutDiscount = 0;
-        for (Map.Entry<Item, Integer> items: this.itemList.entrySet()) {
-        	Item item = items.getKey();
-            totalWithoutDiscount += item.calculatePrice(items.getValue());
-        }
-        return totalWithoutDiscount;
-    }
-
-    private double discountPercentage(double totalAmount) {
-        // discount logic
-    	 if((int)totalAmount >= 1000 && (int)totalAmount < 2000)
-    		  return 0.02 * totalAmount;
-    	 else
-    		  return 0.05 * totalAmount;
-    }
-
-    public void print() {
-        double totalWithoutDiscount = totalWithoutDiscount();
-        double discount = discountPercentage(totalWithoutDiscount);
-        double totalWithDiscount = totalWithoutDiscount - (totalWithoutDiscount * (discount / 100));
-        System.out.println("totalWithoutDiscount : " + totalWithoutDiscount);
-        System.out.println("discount : " + discount);
-        System.out.println("totalWithDiscount : " + totalWithDiscount);
-    }
-}
-
-class GroceryStore {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);  
-        StoreInventoryDetails storeInventoryDetails =  setupInventoryDetails();
-        System.out.println("Available Items");
-        storeInventoryDetails.printItems();
-        System.out.println("Press 1- Add Items 2 - Stop");
-        int choice = sc.nextInt();
-        sc.nextLine();
-        Bill bill = new Bill();
-        while (choice != 2) {
-            System.out.println("Enter the Item code");
-            String itemCode = sc.next();
-            sc.nextLine();
-            System.out.println("Enter the quantity");
-            int quantity = sc.nextInt();
-            try {
-                bill.addItem(itemCode, quantity,storeInventoryDetails);
-            } catch (Error err) {
-                System.out.println("Wrong item code....:(");
-                continue;
-            }
-            System.out.println("Press 1- Add Items 2 - Stop");
-            sc.nextLine();
-            choice = sc.nextInt();
-        }
-        bill.print();
-    }
-
-    private static StoreInventoryDetails setupInventoryDetails() {
-        Item coconutoil = new Item("0001", "COCONUT OIL", "EATABLE", 200.00);
-        Item rice = new Item("0002", "RICE", "EATABLE", 60.00);
-        Item dhal = new Item("0003", "DHAL", "EATABLE", 120.50);
-        Item toothpaste = new Item("0004", "TOOTH PASTE", "DAILY USABLE", 45.25);
-        Item makeupkit = new Item("0005", "MAKEUP KIT", "COSMETIC", 300.00);
-
-        StoreInventoryDetails storeInventoryDetails = new StoreInventoryDetails();
-        storeInventoryDetails.addItems(coconutoil);
-        storeInventoryDetails.addItems(rice);
-        storeInventoryDetails.addItems(dhal);
-        storeInventoryDetails.addItems(toothpaste);
-        storeInventoryDetails.addItems(makeupkit);
-        return storeInventoryDetails;
-    }
+	String ItemCode;
+    String ItemName;
+    String Type;
+    double UnitPrice;
     
+    Item(String ItemCode,String ItemName , String Type, double UnitPrice) {
+    	this.ItemCode = ItemCode;
+        this.ItemName = ItemName;
+        this.Type = Type;
+        this.UnitPrice = UnitPrice;
+    	
+    }
+	
 }
 
+class Discount {
+	int amount;
+	int discount;
+	
+	Discount(int amount, int discount) {
+		this.amount = amount;
+		this.discount = discount;
+	}
+	/*public void printDiscount() {
+			for(Map.Entry<Integer,Integer> hm : discounts.entrySet())
+				System.out.println(hm.getKey() + " " + hm.getValue());
+	} */
+	
+	 
+}
+	
+class StoreInventoryDetails {
+	protected ArrayList <Item> items = new ArrayList <Item> ();
+	
+	public void AddNewItem(Item item) {
+		items.add(item);
+		//items.add(item);
+	}
+	
+	public void PrintItems() {
+		for(Item i : items) {
+			System.out.println(i.ItemCode + " " + i.ItemName + " " + i.Type + " " + i.UnitPrice);
+		}
+		/*Item it = items.get(1);
+		System.out.println(it.ItemName + " " + it.Type + " " + it.UnitPrice); */
+		
+		
+			
+	}
+	
+}
+
+class Bill extends StoreInventoryDetails {
+	ArrayList <Item> item = new ArrayList <Item> ();
+	ArrayList <Double> price = new ArrayList <Double> ();
+	ArrayList <Double> quantity = new ArrayList <Double> ();
+	ArrayList <Double> tax = new ArrayList <Double> ();
+
+	public void addItem(String itemcode) {
+		for(Item itm : super.items)	{
+			if(itm.ItemCode.equals(itemcode))
+				item.add(itm);
+		}
+	}
+	
+	public void addTax(double tax_amnt) {
+		tax.add(tax_amnt);
+	}
+	
+	public void printItem(String itemcode) {
+			for(Item itm : super.items)	{
+			System.out.println("Print Item");
+			System.out.println(itm.ItemCode + " " + itm.ItemName + " " + itm.Type + " " + itm.UnitPrice);
+			if(itm.ItemCode.equals(itemcode))
+				System.out.println(itm.ItemCode + " " + itm.ItemName + " " + itm.Type + " " + itm.UnitPrice);
+		}
+				
+	}
+	
+	public double calculateprice(String itemcode, double qty) {
+		double price = 0.0;
+		for(Item itm : super.items)	{
+			if(itm.ItemCode.equals(itemcode))
+				price = qty * itm.UnitPrice;
+		}
+		return price;
+	}
+	
+	public void addQuantity(double qty) {
+		quantity.add(qty);
+	}
+	
+	public void addPrice(double prce) {
+		price.add(prce);
+	}
+	
+	public String gettype(String itemcode) {
+		String item_type = "";
+		for(Item itm : super.items)	{
+			if(itm.ItemCode.equals(itemcode))
+				item_type += itm.Type;
+		}
+		return item_type;
+ 
+	}
+	public double calculatediscount(ArrayList <Discount> discount , double total) {
+		double amnt=0.0;
+		Iterator<Discount> itr = discount.iterator();
+		while(itr.hasNext()) {
+			Discount d = itr.next();
+			if(d.amount < (int)total) {
+				amnt = (d.discount/100)*total;	
+			}
+			
+		}
+		
+		return amnt;		
+	}
+	
+}
+	
+class Tax {
+	HashMap <String ,Integer> gst = new HashMap<String,Integer>();
+	
+	public void printGST() {
+		for(Map.Entry<String,Integer> hm : gst.entrySet())
+			System.out.println(hm.getKey() + " " + hm.getValue());
+	}
+	
+	public double calculatetax(String type, double price) {
+		int gst_percent = gst.get(type);
+		double amount = (gst_percent/100)*price;
+		return amount;
+	}
+}
+    
+    class GroceryStore {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        
+        double price = 0.0;
+        double tax_amount;
+        double total_bill = 0.0;
+        double total = 0.0;
+        double discount_amount = 0.0;
+        
+
+    	StoreInventoryDetails sid = new StoreInventoryDetails();
+    	Item new_item = new Item("0001","COCONUT OIL", "EATABLE", 200.00);
+    	sid.AddNewItem(new_item);
+    	new_item = new Item("0002","RICE", "EATABLE",60.00);
+    	sid.AddNewItem(new_item);
+        new_item = new Item("0003","DHAL", "EATABLE",120.50);
+        sid.AddNewItem(new_item);
+        new_item = new Item("0004","TOOTH PASTE", "DAILY USABLE",45.25);
+        sid.AddNewItem(new_item);
+        new_item = new Item("0005","MAKE UP KIT", "COSMETIC",300.00);
+        sid.AddNewItem(new_item);
+        //sid.PrintItems();
+        
+        Tax tax = new Tax();
+        tax.gst.put("EATABLES", 5);
+        tax.gst.put("DAILY USABLE", 8);
+        tax.gst.put("COSMETIC" , 15);
+        //tax.printGST();
+        
+        //Discount discount[] = new Discount[2];
+        ArrayList <Discount> discount = new ArrayList <Discount> ();
+        discount.add(new Discount(1000, 2));
+        discount.add(new Discount(2000, 5));
+
+        //discount.printDiscount();
+        System.out.println("Item Details");
+        sid.PrintItems();
+        Bill b = new Bill();
+        System.out.println("Press 1- Add 0- Stop");
+        int choice = sc.nextInt();
+        while(choice != 0) {
+        	System.out.println("Enter the item code");
+        	String item_code = sc.nextLine();
+        	sc.nextLine();
+        	b.addItem(item_code);
+        	b.printItem(item_code);
+        	
+        	System.out.println("Enter the quantity");
+        	double quantity = sc.nextDouble();
+        	b.addQuantity(quantity);
+        	price = b.calculateprice(item_code,quantity);
+        	b.addPrice(price);
+        	String type = b.gettype(item_code);
+        	tax_amount = tax.calculatetax(type,price);
+        	b.addTax(tax_amount);
+        	total_bill +=  price + tax_amount;
+        }
+        discount_amount = b.calculatediscount(discount, total_bill);
+        
+        System.out.println(total_bill);
+        System.out.println(discount_amount);
+        System.out.println(total_bill - discount_amount);
+        
+        
+        
+    }
+    }
