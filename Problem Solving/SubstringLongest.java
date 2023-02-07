@@ -1,6 +1,6 @@
 import java.util.*;
 
-class lgsubstring {
+class SubstringLongest {
 	
 	public static void main(String args[] ) {
 		String [] strs = {"flower","flow","flight"};
