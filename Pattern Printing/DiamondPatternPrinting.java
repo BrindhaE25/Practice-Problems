@@ -1,3 +1,10 @@
+/* Diamond Pattern Printing
+		A
+	       B B
+	      C   C
+	       B B
+	        A
+*/
 import java.util.*;
 public class PatternPrinting {
 
