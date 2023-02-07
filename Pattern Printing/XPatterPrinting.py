@@ -1,3 +1,19 @@
+"""
+
+g           s
+ e         k
+  e       e
+   k     e
+    s   g
+     f r
+      o
+     f r
+    s   g
+   k     e
+  e       e
+ e         k
+g           s
+"""
 import sys
 import math
 
