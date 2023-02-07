@@ -1,3 +1,10 @@
+""" Rotate the array by 90 degree
+Example: array = [ 1,2,3
+	              4,5,6
+	              7,8,9 ]
+Then the output should be [ 3,6,9
+			    2,5,8
+			    1,4,7 ]"""
 arr = [[1,2,3],[4,5,6],[7,8,9]]
 
 row = len(arr)
