@@ -1,3 +1,7 @@
+/*
+This program logic is similar to rat in a maze problem considering four directions. 
+If the two dimensional array has red in the input position or neighbor positions, then it should be replaced with the given color.
+*/
 import java.util.*;
 public class Image {
 	int min=0, max = 6;
