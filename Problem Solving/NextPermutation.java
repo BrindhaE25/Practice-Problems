@@ -1,3 +1,9 @@
+//        Input: arr = [1,2,3]
+//        Output: [1,3,2]
+//        Explanation: for 1,2,3 the next lexicographically greater permutation of its integer is 1,3,2
+//        Input: arr = [3,2,1]
+//        Output: [1,2,3]
+//        Works like the dictionary like how the words are ordered
 class NextPermutation {
     public static void main(String[] args) {
         int[] arr = {1,1,5};
