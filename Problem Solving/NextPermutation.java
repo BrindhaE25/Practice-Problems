@@ -6,7 +6,7 @@
 //        Works like the dictionary like how the words are ordered
 class NextPermutation {
     public static void main(String[] args) {
-        int[] arr = {1,1,5};
+        int[] arr = {0,1,2,5,3,3,0};
         int iter = arr.length-2;
         int lastElem = arr[arr.length-1];
         int pivot = -1;
@@ -16,6 +16,7 @@ class NextPermutation {
                 pivot = iter;
                 break;
             }
+            lastElem = arr[iter];
             iter--;
         }
 
@@ -24,13 +25,14 @@ class NextPermutation {
             while (iter >= 0) {
                 if (arr[iter] > arr[pivot]) {
                     swap(iter, pivot, arr);
+                    reverse(pivot+1,arr.length-1,arr);
                     break;
                 }
                 iter--;
             }
         }
         else {
-            reverse(arr);
+            reverse(0,arr.length-1,arr);
         }
         print(arr);
     }
@@ -41,9 +43,7 @@ class NextPermutation {
         arr[pivot] = temp;
     }
 
-    private static void reverse(int[] arr) {
-        int low=0, high = arr.length-1;
-
+    private static void reverse(int low, int high,int[] arr) {
         while (low <= high) {
             swap(low,high,arr);
             low++;
