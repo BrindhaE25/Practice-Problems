@@ -23,14 +23,14 @@ public class FirstAndLastElement {
             mid = (low + high) / 2;
             if(arr[mid] == target) {
                 if(arr[low] == target) {
-                    arr[0] = low;
-                    arr[1] = mid;
-                    return arr;
+                    result[0] = low;
+                    result[1] = mid;
+                    return result;
                 }
                 else if(arr[high] == target) {
-                    arr[0] = mid;
-                    arr[1] = high;
-                    return arr;
+                    result[0] = mid;
+                    result[1] = high;
+                    return result;
                 }
                 else if(arr[low] < target)
                     low = (low + mid)/2;
