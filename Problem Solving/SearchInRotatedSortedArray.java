@@ -13,21 +13,26 @@
 public class SearchInRotatedSortedArray {
 
     public static void main(String args[]) {
-        int arr[] = new int[]{1};
-        int target = 0;
-        int index = search(arr,0,arr.length-1,target);
+        int arr[] = new int[]{4,5,6,7,0,1,2};
+        int target = 3;
+        int index = search(arr, 0, arr.length - 1, target);
         System.out.println(index);
     }
 
     private static int search(int[] arr, int low, int high, int target) {
-        int mid = (low+high)/2;
-        if(low > high) return -1;
-        if(arr[mid] == target && arr[mid-1] > arr[mid]) return mid;
+        int mid = (low + high) / 2;
+        if (low > high) return -1;
+        if(arr[low] == target) return low;
+        if(arr[high] == target) return high;
+        if (arr[mid] == target && arr[mid - 1] > arr[mid]) return mid;
         else {
-            if(target < arr[mid] && target < arr[low])return search(arr,mid+1,high,target);
-            else if(target < arr[mid] && target >= arr[low]) return search(arr,low,mid-1,target);
-            else if(target > arr[mid] && target > arr[high]) return search(arr,low,mid-1,target);
-            else if (target > arr[mid] && arr[low] <= arr[mid]) return search(arr,low,mid-1,target);
+            if (target < arr[mid]) {
+                if (target <= arr[low]) return search(arr, mid + 1, high, target);
+                else return search(arr, low, mid - 1, target);
+            } else {
+                if (target >= arr[high]) search(arr, low, mid - 1, target);
+                else return search(arr, mid + 1, high, target);
+            }
         }
         return -1;
     }
